@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday My Love 💖</title>
     <style>
+        /* টেক্সট সিলেক্ট হওয়া বন্ধ করার গ্লোবাল রুল */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -27,11 +36,12 @@
             margin: 20px 0;
         }
 
-        /* 1. Love Box Styles */
+        /* 1. Love Box Styles & Fixes */
         .box-wrapper {
-            cursor: pointer;
+            position: relative;
             display: inline-block;
             transition: transform 0.3s;
+            padding: 20px;
         }
         .box-wrapper:hover {
             transform: scale(1.05);
@@ -39,7 +49,23 @@
         .love-box {
             font-size: 100px;
             animation: bounce 2s infinite;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            pointer-events: none; /* ইমোজির নিজস্ব টাচ ব্লক করা হয়েছে */
         }
+        
+        /* ইমোজির ওপর ক্লিকেবল লেয়ার */
+        .click-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            z-index: 20;
+        }
+
         .click-text {
             font-size: 1.5rem;
             color: #d63384;
@@ -116,6 +142,8 @@
             color: #4a4a4a;
             text-align: left;
             white-space: pre-line;
+            -webkit-user-select: text; /* চিঠিটি যেন কপি করা যায় */
+            user-select: text;
         }
         .signature {
             text-align: right;
@@ -199,7 +227,9 @@
 
     <div class="container">
         <!-- STAGE 1: LOVE BOX -->
-        <div id="stage-box" class="box-wrapper" onclick="openBox()">
+        <div id="stage-box" class="box-wrapper">
+            <!-- অদৃশ্য টাচ লেয়ার যা সিলেকশন এরর দূর করবে -->
+            <div class="click-overlay" onclick="openBox()"></div>
             <div class="love-box">🎁❤️</div>
             <div class="click-text">Click My Wifey ✨</div>
         </div>
@@ -248,7 +278,6 @@ My prayer for you today is that you feel as cherished, valued, and deeply loved 
     </div>
 
     <script>
-        // নির্দিষ্ট গুরুত্বপূর্ণ তারিখসমূহ
         const birthDate = new Date("2005-10-15T00:00:00");
         const marriageDate = new Date("2025-01-06T00:00:00");
 
@@ -267,22 +296,4 @@ My prayer for you today is that you feel as cherished, valued, and deeply loved 
             document.getElementById('candle').innerText = '💨';
             
             setTimeout(() => {
-                document.getElementById('stage-cake').style.display = 'none';
-                document.getElementById('stage-letter').style.display = 'block';
-                // লেটার খোলার সাথে সাথে টাইম কাউন্টার চালু হবে
-                setInterval(updateWatches, 1000);
-                updateWatches();
-            }, 1000);
-        }
-
-        function updateWatches() {
-            const now = new Date();
-
-            // --- ১. জন্মদিনের লাইভ ওয়াচ এবং পরবর্তী জন্মদিনের কাউন্টডাউন লজিক ---
-            let currentYear = now.getFullYear();
-            let thisBirthday = new Date(currentYear, birthDate.getMonth(), birthDate.getDate(), 0, 0, 0);
-            let birthdayEnd = new Date(currentYear, birthDate.getMonth(), birthDate.getDate(), 23, 59, 59);
-
-            // যদি আজকে জন্মদিন রানিং থাকে
-            if (now >= thisBirthday && now <= birthdayEnd) {
         
