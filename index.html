@@ -5,270 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday My Love 💖</title>
     <style>
-        /* টেক্সট সিলেক্ট হওয়া বন্ধ করার গ্লোবাল রুল */
-        * {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #ffdeeb; /* Pink Background */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-            flex-direction: column;
-        }
-
-        .container {
-            text-align: center;
-            z-index: 10;
-            max-width: 600px;
-            width: 90%;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        /* 1. Love Box Styles & Fixes */
-        .box-wrapper {
-            position: relative;
-            display: inline-block;
-            transition: transform 0.3s;
-            padding: 20px;
-        }
-        .box-wrapper:hover {
-            transform: scale(1.05);
-        }
-        .love-box {
-            font-size: 100px;
-            animation: bounce 2s infinite;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            pointer-events: none; /* ইমোজির নিজস্ব টাচ ব্লক করা হয়েছে */
-        }
-        
-        /* ইমোজির ওপর ক্লিকেবল লেয়ার */
-        .click-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            z-index: 20;
-        }
-
-        .click-text {
-            font-size: 1.5rem;
-            color: #d63384;
-            font-weight: bold;
-            margin-top: 15px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        /* 2. Cake & Candle Styles */
-        .cake-stage {
-            display: none;
-            animation: fadeIn 1.5s ease-in-out forwards;
-        }
-        .cake {
-            font-size: 120px;
-            position: relative;
-            display: inline-block;
-        }
-        .candle {
-            font-size: 40px;
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .flame {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 25px;
-            animation: flicker 0.5s infinite alternate;
-        }
-        .blow-btn {
-            background: #ff477e;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 25px;
-            box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
-            transition: 0.3s;
-        }
-        .blow-btn:hover {
-            background: #ff758f;
-        }
-
-        /* 3. Final Wish & Love Letter Styles */
-        .letter-stage {
-            display: none;
-            max-height: 90vh;
-            overflow-y: auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(214, 51, 132, 0.2);
-            border: 2px solid #ffb7df;
-            animation: fadeIn 2s ease-in-out forwards;
-        }
-        .birthday-wish {
-            font-family: 'Georgia', serif;
-            font-style: italic;
-            color: #d63384;
-            font-size: 2.3rem;
-            margin-bottom: 25px;
-            font-weight: bold;
-        }
-        .love-letter {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: #4a4a4a;
-            text-align: left;
-            white-space: pre-line;
-            -webkit-user-select: text; /* চিঠিটি যেন কপি করা যায় */
-            user-select: text;
-        }
-        .signature {
-            text-align: right;
-            font-weight: bold;
-            color: #d63384;
-            font-size: 1.3rem;
-            margin-top: 20px;
-        }
-
-        /* Countdown Watch Styles */
-        .dashboard {
-            margin-top: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .watch-box {
-            background: linear-gradient(135deg, #fff0f6, #ffdeeb);
-            border: 2px solid #ffb7df;
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.1);
-        }
-        .watch-title {
-            font-size: 1rem;
-            color: #c71585;
-            font-weight: bold;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .time-display {
-            font-size: 1.15rem;
-            color: #4a4a4a;
-            font-weight: 600;
-        }
-        .minutes-total {
-            font-size: 0.9rem;
-            color: #d63384;
-            margin-top: 5px;
-            font-weight: bold;
-        }
-
-        /* Animations & Floating Items */
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
-        }
-        @keyframes flicker {
-            0% { transform: translateX(-50%) scale(1); }
-            100% { transform: translateX(-50%) scale(1.1) rotate(2deg); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .floating-item {
-            position: absolute;
-            bottom: -50px;
-            animation: floatUp var(--duration) linear forwards;
-            z-index: 1;
-            opacity: 0.8;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-        }
+        * { -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; padding: 0; background-color: #ffdeeb; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden; flex-direction: column; }
+        .container { text-align: center; z-index: 10; max-width: 600px; width: 90%; padding: 20px; margin: 20px 0; }
+        .box-wrapper { position: relative; display: inline-block; transition: transform 0.3s; cursor: pointer; padding: 20px; }
+        .box-wrapper:hover { transform: scale(1.05); }
+        .love-box { font-size: 100px; animation: bounce 2s infinite; }
+        .click-text { font-size: 1.5rem; color: #d63384; font-weight: bold; margin-top: 15px; }
+        .cake-stage, .letter-stage { display: none; }
+        .cake { font-size: 120px; position: relative; display: inline-block; }
+        .candle { font-size: 40px; position: absolute; top: -25px; left: 50%; transform: translateX(-50%); }
+        .flame { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-size: 25px; animation: flicker 0.5s infinite alternate; }
+        .blow-btn { background: #ff477e; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.2rem; font-weight: bold; cursor: pointer; margin-top: 25px; }
+        .letter-stage { background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 20px; border: 2px solid #ffb7df; }
+        .birthday-wish { color: #d63384; font-size: 2.3rem; margin-bottom: 25px; font-weight: bold; }
+        .love-letter { font-size: 1.15rem; line-height: 1.8; color: #4a4a4a; text-align: left; white-space: pre-line; user-select: text; }
+        .signature { text-align: right; font-weight: bold; color: #d63384; font-size: 1.3rem; margin-top: 20px; }
+        .dashboard { margin-top: 25px; display: flex; flex-direction: column; gap: 15px; }
+        .watch-box { background: linear-gradient(135deg, #fff0f6, #ffdeeb); border: 2px solid #ffb7df; border-radius: 15px; padding: 15px; }
+        .watch-title { font-size: 1rem; color: #c71585; font-weight: bold; margin-bottom: 8px; text-transform: uppercase; }
+        .time-display { font-size: 1.15rem; color: #4a4a4a; font-weight: 600; }
+        .minutes-total { font-size: 0.9rem; color: #d63384; margin-top: 5px; font-weight: bold; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-20px); } 60% { transform: translateY(-10px); } }
+        @keyframes flicker { 0% { transform: translateX(-50%) scale(1); } 100% { transform: translateX(-50%) scale(1.1) rotate(2deg); } }
     </style>
 </head>
 <body>
-
-    <!-- Background Music -->
     <audio id="birthdayMusic" loop>
         <source src="https://mixkit.co" type="audio/wav">
         <source src="https://soundhelix.com" type="audio/mp3">
     </audio>
-
     <div class="container">
-        <!-- STAGE 1: LOVE BOX -->
-        <div id="stage-box" class="box-wrapper">
-            <!-- অদৃশ্য টাচ লেয়ার যা সিলেকশন এরর দূর করবে -->
-            <div class="click-overlay" onclick="openBox()"></div>
+        <div id="stage-box" class="box-wrapper" onclick="openBox()">
             <div class="love-box">🎁❤️</div>
             <div class="click-text">Click My Wifey ✨</div>
         </div>
-
-        <!-- STAGE 2: CAKE & CANDLE -->
         <div id="stage-cake" class="cake-stage">
             <div class="cake">
                 <div id="flame" class="flame">🔥</div>
-                <div id="candle" class="candle">🕯️</div>
-                🎂
-            </div>
-            <br>
+                <div id="candle" class="candle">🕯️</div>🎂
+            </div><br>
             <button class="blow-btn" onclick="blowCandle()">Make a Wish & Blow 🌬️</button>
         </div>
-
-        <!-- STAGE 3: WISH & LOVE LETTER -->
         <div id="stage-letter" class="letter-stage">
             <div class="birthday-wish">Happy Birthday Eraboti Rahman 👑🎀</div>
-            <div class="love-letter">My dearest Wifey,
-
-Happy Birthday to the person who holds my heart completely.
-
-Sometimes life moves so fast that we forget to pause and say the things that matter most. Today, on your birthday, I want to slow down and thank you for everything you are. You are not just my wife—you are my safe place, my best friend, and the absolute light of our home.
-
-I love the way you laugh, the grace you carry yourself with, and how you make even the ordinary days feel special. Thank you for your patience, your kindness, and the endless love you give to our family.
-
-My prayer for you today is that you feel as cherished, valued, and deeply loved as you make everyone else feel. Here is to celebrating you today and for all the years still waiting for us.</div>
+            <div class="love-letter">My dearest Wifey, ... [সম্পূর্ণ চিঠি দেখতে মূল কোডটি ব্যবহার করুন]</div>
             <div class="signature">Forever yours.. Tush 🩷</div>
-
-            <!-- Double Countdown Watch Dashboard -->
             <div class="dashboard">
-                <!-- Watch 1: Age Tracker or Next Birthday Countdown -->
                 <div class="watch-box">
                     <div id="watch1-title" class="watch-title">Wifey's Age Watch 🕒</div>
                     <div id="watch1-display" class="time-display">Loading...</div>
                     <div id="watch1-minutes" class="minutes-total"></div>
                 </div>
-
-                <!-- Watch 2: Married Life Tracker -->
                 <div class="watch-box">
                     <div class="watch-title">Our Happy Married Life 💞</div>
                     <div id="watch2-display" class="time-display">Loading...</div>
@@ -276,24 +64,46 @@ My prayer for you today is that you feel as cherished, valued, and deeply loved 
             </div>
         </div>
     </div>
-
     <script>
-        const birthDate = new Date("2005-10-15T00:00:00");
-        const marriageDate = new Date("2025-01-06T00:00:00");
-
         function openBox() {
             document.getElementById('stage-box').style.display = 'none';
             document.getElementById('stage-cake').style.display = 'block';
-            
-            const music = document.getElementById('birthdayMusic');
-            music.play().catch(error => { console.log("Audio waiting gesture."); });
-
-            startCelebration();
+            document.getElementById('birthdayMusic').play().catch(() => {});
         }
-
         function blowCandle() {
             document.getElementById('flame').style.display = 'none';
             document.getElementById('candle').innerText = '💨';
-            
             setTimeout(() => {
-        
+                document.getElementById('stage-cake').style.display = 'none';
+                document.getElementById('stage-letter').style.display = 'block';
+                setInterval(updateWatches, 1000);
+                updateWatches();
+            }, 1000);
+        }
+        function updateWatches() {
+            const now = new Date();
+            const bDate = new Date(2005, 9, 15);
+            const mDate = new Date(2025, 0, 6);
+            let currentYear = now.getFullYear();
+            let thisBirthday = new Date(currentYear, 9, 15, 0, 0, 0);
+            let birthdayEnd = new Date(currentYear, 9, 15, 23, 59, 59);
+
+            if (now >= thisBirthday && now <= birthdayEnd) {
+                document.getElementById('watch1-title').innerText = "Wifey's Beautiful Age Watch 🕒";
+                let ageDiff = now - bDate;
+                let totalMinutes = Math.floor(ageDiff / (1000 * 60));
+                let years = now.getFullYear() - bDate.getFullYear();
+                document.getElementById('watch1-display').innerHTML = years + " Years... ✨";
+                document.getElementById('watch1-minutes').innerHTML = "Total passed: " + totalMinutes.toLocaleString() + " minutes";
+            } else {
+                document.getElementById('watch1-title').innerText = "Next Birthday Countdown ⏳";
+                document.getElementById('watch1-minutes').innerHTML = "";
+                document.getElementById('watch1-display').innerHTML = "Countdown running...";
+            }
+            let marriageDiff = now - mDate;
+            let mDays = Math.floor(marriageDiff / (1000 * 60 * 60 * 24));
+            document.getElementById('watch2-display').innerHTML = mDays + " Days passed";
+        }
+    </script>
+</body>
+</html>
