@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love 💖</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffdeeb; /* Pink Background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            max-width: 600px;
+            width: 90%;
+            padding: 20px;
+        }
+
+        /* 1. Love Box Styles */
+        .box-wrapper {
+            cursor: pointer;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        .box-wrapper:hover {
+            transform: scale(1.05);
+        }
+        .love-box {
+            font-size: 100px;
+            animation: bounce 2s infinite;
+        }
+        .click-text {
+            font-size: 1.5rem;
+            color: #d63384;
+            font-weight: bold;
+            margin-top: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* 2. Cake & Candle Styles */
+        .cake-stage {
+            display: none;
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+        .cake {
+            font-size: 120px;
+            position: relative;
+            display: inline-block;
+        }
+        .candle {
+            font-size: 40px;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .flame {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 25px;
+            animation: flicker 0.5s infinite alternate;
+        }
+        .blow-btn {
+            background: #ff477e;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
+            transition: 0.3s;
+        }
+        .blow-btn:hover {
+            background: #ff758f;
+        }
+
+        /* 3. Final Wish & Love Letter Styles */
+        .letter-stage {
+            display: none;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(214, 51, 132, 0.2);
+            border: 2px solid #ffb7df;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+        .birthday-wish {
+            font-family: 'Georgia', serif;
+            font-style: italic; /* Italic Font */
+            color: #d63384;
+            font-size: 2.3rem;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        .love-letter {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            text-align: left;
+            white-space: pre-line; /* Keeps paragraph breaks */
+        }
+        .signature {
+            text-align: right;
+            font-weight: bold;
+            color: #d63384;
+            font-size: 1.3rem;
+            margin-top: 20px;
+        }
+
+        /* Animations & Floating Items */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); }
+            100% { transform: translateX(-50%) scale(1.1) rotate(2deg); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .floating-item {
+            position: absolute;
+            bottom: -50px;
+            animation: floatUp var(--duration) linear forwards;
+            z-index: 1;
+            opacity: 0.8;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- অনলাইন থেকে সরাসরি শুভ জন্মদিনের ইন্সট্রুমেন্টাল মিউজিক লিংক -->
+    <audio id="birthdayMusic" loop>
+        <source src="https://mixkit.co" type="audio/wav">
+        <source src="https://soundhelix.com" type="audio/mp3">
+    </audio>
+
+    <div class="container">
+        <!-- STAGE 1: LOVE BOX -->
+        <div id="stage-box" class="box-wrapper" onclick="openBox()">
+            <div class="love-box">🎁❤️</div>
+            <div class="click-text">Click My Wifey ✨</div>
+        </div>
+
+        <!-- STAGE 2: CAKE & CANDLE -->
+        <div id="stage-cake" class="cake-stage">
+            <div class="cake">
+                <div id="flame" class="flame">🔥</div>
+                <div id="candle" class="candle">🕯️</div>
+                🎂
+            </div>
+            <br>
+            <button class="blow-btn" onclick="blowCandle()">Make a Wish & Blow 🌬️</button>
+        </div>
+
+        <!-- STAGE 3: WISH & LOVE LETTER -->
+        <div id="stage-letter" class="letter-stage">
+            <div class="birthday-wish">Happy Birthday Eraboti Rahman 👑🎀</div>
+            <div class="love-letter">My dearest Wifey,
+
+Happy Birthday to the person who holds my heart completely.
+
+Sometimes life moves so fast that we forget to pause and say the things that matter most. Today, on your birthday, I want to slow down and thank you for everything you are. You are not just my wife—you are my safe place, my best friend, and the absolute light of our home.
+
+I love the way you laugh, the grace you carry yourself with, and how you make even the ordinary days feel special. Thank you for your patience, your kindness, and the endless love you give to our family.
+
+My prayer for you today is that you feel as cherished, valued, and deeply loved as you make everyone else feel. Here is to celebrating you today and for all the years still waiting for us.</div>
+            <div class="signature">Forever yours.. Tush 🩷</div>
+        </div>
+    </div>
+
+    <script>
+        // ১. লাভ বক্স খোলার ফাংশন ও মিউজিক প্লে
+        function openBox() {
+            document.getElementById('stage-box').style.display = 'none';
+            document.getElementById('stage-cake').style.display = 'block';
+            
+            // মিউজিক ব্যাকগ্রাউন্ডে প্লে করা
+            const music = document.getElementById('birthdayMusic');
+            music.play().catch(error => {
+                console.log("Audio play failed, requires user interaction gesture standard.");
+            });
+
+            startCelebration(); // বেলুন এবং হার্ট ওড়ানো শুরু
+        }
+
+        // ২. মোমবাতি নেভানোর ফাংশন
+        function blowCandle() {
+            document.getElementById('flame').style.display = 'none'; // আগুন নিভে যাবে
+            document.getElementById('candle').innerText = '💨'; // ধোঁয়া ইফেক্ট
+            
+            setTimeout(() => {
+                document.getElementById('stage-cake').style.display = 'none';
+                document.getElementById('stage-letter').style.display = 'block';
+            }, 1000); // ১ সেকেন্ড পর লেটার আসবে
+        }
+
+        // ৩. ব্যাকগ্রাউন্ডে বেলুন এবং রোমান্টিক লাভ ওড়ার স্ক্রিপ্ট
+        function startCelebration() {
+            const items = ['🎈', '🎈', '❤️', '💖', '💕', '🌸'];
+            
+            setInterval(() => {
+                const item = document.createElement('div');
+                item.classList.add('floating-item');
+                item.innerText = items[Math.floor(Math.random() * items.length)];
+                
+                // র্যান্ডম সাইজ, পজিশন এবং স্পিড
+                item.style.left = Math.random() * 100 + 'vw';
+                item.style.fontSize = Math.random() * 20 + 25 + 'px';
+                
+                const duration = Math.random() * 3 + 4; // ৪ থেকে ৭ সেকেন্ড
+                item.style.setProperty('--duration', `${duration}s`);
+                
+                document.body.appendChild(item);
+                
+                // স্ক্রিন পার হয়ে গেলে ডিলিট করে দেওয়া
+                setTimeout(() => {
+                    item.remove();
+                }, duration * 1000);
+            }, 250); // প্রতি ২৫০ মিলি-সেকেন্ডে একটা করে উড়বে
+        }
+    </script>
+</body>
+</html>
