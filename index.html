@@ -14,7 +14,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
             flex-direction: column;
         }
 
@@ -24,6 +24,7 @@
             max-width: 600px;
             width: 90%;
             padding: 20px;
+            margin: 20px 0;
         }
 
         /* 1. Love Box Styles */
@@ -92,7 +93,7 @@
         /* 3. Final Wish & Love Letter Styles */
         .letter-stage {
             display: none;
-            max-height: 85vh;
+            max-height: 90vh;
             overflow-y: auto;
             background: rgba(255, 255, 255, 0.95);
             padding: 30px;
@@ -103,7 +104,7 @@
         }
         .birthday-wish {
             font-family: 'Georgia', serif;
-            font-style: italic; /* Italic Font */
+            font-style: italic;
             color: #d63384;
             font-size: 2.3rem;
             margin-bottom: 25px;
@@ -114,7 +115,7 @@
             line-height: 1.8;
             color: #4a4a4a;
             text-align: left;
-            white-space: pre-line; /* Keeps paragraph breaks */
+            white-space: pre-line;
         }
         .signature {
             text-align: right;
@@ -122,6 +123,40 @@
             color: #d63384;
             font-size: 1.3rem;
             margin-top: 20px;
+        }
+
+        /* Countdown Watch Styles */
+        .dashboard {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .watch-box {
+            background: linear-gradient(135deg, #fff0f6, #ffdeeb);
+            border: 2px solid #ffb7df;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.1);
+        }
+        .watch-title {
+            font-size: 1rem;
+            color: #c71585;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .time-display {
+            font-size: 1.15rem;
+            color: #4a4a4a;
+            font-weight: 600;
+        }
+        .minutes-total {
+            font-size: 0.9rem;
+            color: #d63384;
+            margin-top: 5px;
+            font-weight: bold;
         }
 
         /* Animations & Floating Items */
@@ -156,7 +191,7 @@
 </head>
 <body>
 
-    <!-- অনলাইন থেকে সরাসরি শুভ জন্মদিনের ইন্সট্রুমেন্টাল মিউজিক লিংক -->
+    <!-- Background Music -->
     <audio id="birthdayMusic" loop>
         <source src="https://mixkit.co" type="audio/wav">
         <source src="https://soundhelix.com" type="audio/mp3">
@@ -193,59 +228,61 @@ I love the way you laugh, the grace you carry yourself with, and how you make ev
 
 My prayer for you today is that you feel as cherished, valued, and deeply loved as you make everyone else feel. Here is to celebrating you today and for all the years still waiting for us.</div>
             <div class="signature">Forever yours.. Tush 🩷</div>
+
+            <!-- Double Countdown Watch Dashboard -->
+            <div class="dashboard">
+                <!-- Watch 1: Age Tracker or Next Birthday Countdown -->
+                <div class="watch-box">
+                    <div id="watch1-title" class="watch-title">Wifey's Age Watch 🕒</div>
+                    <div id="watch1-display" class="time-display">Loading...</div>
+                    <div id="watch1-minutes" class="minutes-total"></div>
+                </div>
+
+                <!-- Watch 2: Married Life Tracker -->
+                <div class="watch-box">
+                    <div class="watch-title">Our Happy Married Life 💞</div>
+                    <div id="watch2-display" class="time-display">Loading...</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // ১. লাভ বক্স খোলার ফাংশন ও মিউজিক প্লে
+        // নির্দিষ্ট গুরুত্বপূর্ণ তারিখসমূহ
+        const birthDate = new Date("2005-10-15T00:00:00");
+        const marriageDate = new Date("2025-01-06T00:00:00");
+
         function openBox() {
             document.getElementById('stage-box').style.display = 'none';
             document.getElementById('stage-cake').style.display = 'block';
             
-            // মিউজিক ব্যাকগ্রাউন্ডে প্লে করা
             const music = document.getElementById('birthdayMusic');
-            music.play().catch(error => {
-                console.log("Audio play failed, requires user interaction gesture standard.");
-            });
+            music.play().catch(error => { console.log("Audio waiting gesture."); });
 
-            startCelebration(); // বেলুন এবং হার্ট ওড়ানো শুরু
+            startCelebration();
         }
 
-        // ২. মোমবাতি নেভানোর ফাংশন
         function blowCandle() {
-            document.getElementById('flame').style.display = 'none'; // আগুন নিভে যাবে
-            document.getElementById('candle').innerText = '💨'; // ধোঁয়া ইফেক্ট
+            document.getElementById('flame').style.display = 'none';
+            document.getElementById('candle').innerText = '💨';
             
             setTimeout(() => {
                 document.getElementById('stage-cake').style.display = 'none';
                 document.getElementById('stage-letter').style.display = 'block';
-            }, 1000); // ১ সেকেন্ড পর লেটার আসবে
+                // লেটার খোলার সাথে সাথে টাইম কাউন্টার চালু হবে
+                setInterval(updateWatches, 1000);
+                updateWatches();
+            }, 1000);
         }
 
-        // ৩. ব্যাকগ্রাউন্ডে বেলুন এবং রোমান্টিক লাভ ওড়ার স্ক্রিপ্ট
-        function startCelebration() {
-            const items = ['🎈', '🎈', '❤️', '💖', '💕', '🌸'];
-            
-            setInterval(() => {
-                const item = document.createElement('div');
-                item.classList.add('floating-item');
-                item.innerText = items[Math.floor(Math.random() * items.length)];
-                
-                // র্যান্ডম সাইজ, পজিশন এবং স্পিড
-                item.style.left = Math.random() * 100 + 'vw';
-                item.style.fontSize = Math.random() * 20 + 25 + 'px';
-                
-                const duration = Math.random() * 3 + 4; // ৪ থেকে ৭ সেকেন্ড
-                item.style.setProperty('--duration', `${duration}s`);
-                
-                document.body.appendChild(item);
-                
-                // স্ক্রিন পার হয়ে গেলে ডিলিট করে দেওয়া
-                setTimeout(() => {
-                    item.remove();
-                }, duration * 1000);
-            }, 250); // প্রতি ২৫০ মিলি-সেকেন্ডে একটা করে উড়বে
-        }
-    </script>
-</body>
-</html>
+        function updateWatches() {
+            const now = new Date();
+
+            // --- ১. জন্মদিনের লাইভ ওয়াচ এবং পরবর্তী জন্মদিনের কাউন্টডাউন লজিক ---
+            let currentYear = now.getFullYear();
+            let thisBirthday = new Date(currentYear, birthDate.getMonth(), birthDate.getDate(), 0, 0, 0);
+            let birthdayEnd = new Date(currentYear, birthDate.getMonth(), birthDate.getDate(), 23, 59, 59);
+
+            // যদি আজকে জন্মদিন রানিং থাকে
+            if (now >= thisBirthday && now <= birthdayEnd) {
+        
